@@ -1,4 +1,4 @@
-public class Produit {
+public abstract class Produit {
 
     protected String nom;
 
@@ -6,11 +6,7 @@ public class Produit {
         this.nom = nom;
     }
 
-    void CalculerPrix() {
-        System.out.println("Calcule de Produit");
-        
-    }
-
+    abstract void CalculerPrix();
 
 }
 

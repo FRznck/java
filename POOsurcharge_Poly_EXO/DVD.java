@@ -8,7 +8,7 @@ public class DVD extends Produit {
     }
     @Override
     void CalculerPrix() {
-        System.out.println("Calcule de DVD");
+        System.out.println("Calcul du prix du DVD: " + title);
     }
     
     public String getTitle() {

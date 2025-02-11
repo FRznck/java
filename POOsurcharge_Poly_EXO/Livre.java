@@ -11,8 +11,7 @@ public class Livre extends Produit {
     }
     @Override
     void CalculerPrix() {
-        System.out.println("Calcule de Livre");
-        
+        System.out.println("Calcul du prix du Livre: " + titre);
     }
     
     public String getAuteur() {
