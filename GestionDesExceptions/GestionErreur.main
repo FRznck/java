@@ -1,0 +1,12 @@
+public class GestionErreur {
+
+    static String[] tableau = {"un", "deux", "trois"};
+    
+    public static void main(String[] args) {
+        try {
+            System.out.println(tableau[3]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Erreur : accès à un élément inexistant");
+        }
+    }
+}
