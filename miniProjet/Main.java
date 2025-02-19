@@ -9,13 +9,15 @@ public class Main {
     public static void main(String[] args) {
         // Saisir d'étudiants dans la liste
         System.out.println("Bienvenue dans le programme de gestion des étudiants");
+        System.out.println(" \n");
         // ajout d'un lapse de temps pour que l'utilisateur puisse lire le message
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Appuyez sur une touche pour continuer");
+        System.out.println("Entrez sur une touche pour continuer");
+       
         
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
@@ -27,7 +29,8 @@ public class Main {
             System.out.println("1. Ajouter un etudiant");
             System.out.println("2. Supprimer un etudiant");
             System.out.println("3. Afficher la liste des etudiants");
-            System.out.println("4. Quitter");
+            System.out.println("4. Rechercher un etudiant");
+            System.out.println("5. Quitter");
             System.out.print("Votre choix : ");
     
             // Lire l'entrée de l'utilisateur
@@ -45,6 +48,10 @@ public class Main {
                     afficherEtudiants();
                     break;
                 case 4:
+                   rechercherEtudiant();
+                    break;
+                    
+                case 5:
                     System.out.println("Merci d'avoir utilisé notre programme !");
                     break;
                 default:
@@ -80,6 +87,8 @@ public class Main {
         String nom = scanner.nextLine();
         System.out.println("Entrez le prenom de l'Etudiant:: ");
         String prenom = scanner.nextLine();
+        
+        scanner.close();
         //on compare les noms et prenoms pour supprimer l'etudiant
         for (int i = 0; i < Etudiants.size(); i++) {
             if (Etudiants.get(i).getNom().equals(nom) && Etudiants.get(i).getPrenom().equals(prenom)) {
@@ -107,6 +116,35 @@ public static void afficherEtudiants() {
             System.out.println(" ");
         }
         }
+    }
+
+
+    //fonction qui permet de rechercher un etudiant
+    public static void rechercherEtudiant() {
+        System.out.println("Vous êtes sur le point de rechercher un etudiant");
+        System.out.println(" ");
+        System.out.println("Entrez le nom de l'Etudiant: ");
+        Scanner scanner = new Scanner(System.in);
+        String nom = scanner.nextLine();
+        System.out.println("Entrez le prenom de l'Etudiant:: ");
+        String prenom = scanner.nextLine();
+        scanner.close();
+        //on compare les noms et prenoms pour rechercher l'etudiant
+        for (int i = 0; i < Etudiants.size(); i++) {
+            if (Etudiants.get(i).getNom().equals(nom) && Etudiants.get(i).getPrenom().equals(prenom)) {
+                System.out.println("Etudiant trouve");
+                System.out.println("Nom: " + Etudiants.get(i).getNom());
+                System.out.println("Prenom: " + Etudiants.get(i).getPrenom());
+                System.out.println("Classe: " + Etudiants.get(i).getClasse());
+                return;
+           
+            }else{
+                System.out.println("Etudiant non trouvé(e)");
+            }
+        }
+        
+                
+
     }
 }
 
