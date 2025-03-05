@@ -1,39 +1,80 @@
 package com.monprojet;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
-/**
- * Hello world!
- */
-public class App {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-        String url = "jdbc:mysql://localhost:3306/app";
-        String utilisateur = "root";
-        String motDePasse = "root";
 
-        // Utilisation du try-with-resources pour gérer automatiquement la fermeture des ressources
-        try (Connection connexion = DriverManager.getConnection(url, utilisateur, motDePasse);
-             Statement stmt = connexion.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT id, nom, email FROM utilisateurs")) {
+import java.util.Scanner;
 
-            System.out.println("Connexion réussie !");
-            System.out.println("Liste des utilisateurs :");
+public class App 
+{
+    public static void main( String[] args )
+    {
+        /* On clear la console */
+        System.out.print("\033[H\033[2J");   
+        System.out.flush();
 
-            // Parcours du ResultSet
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nom = rs.getString("nom");
-                String email = rs.getString("email");
-                System.out.println("ID : " + id + ", Email : " + email + ", Nom : " + nom);
+        System.out.println( "Hello World!" );
+        Connexion link = new Connexion();
+        GestionUtilisateur gu = new GestionUtilisateur(link);
+
+        /* On demande à l'utilisateur ce qu'il veut faire */
+        Scanner sc = new Scanner(System.in);
+        int choice = 0;
+
+        do { 
+            System.out.println("Que voulez vous faire ?");
+            System.out.println("1 - Lister les utilisateurs");
+            System.out.println("2 - Ajouter un utilisateur");
+            System.out.println("3 - Supprimer un utilisateur");
+            System.out.println("4 - Modifier un utilisateur");
+            System.out.println("0 - Quitter");
+            choice = sc.nextInt();
+            
+            System.out.print("\033[H\033[2J");   
+            System.out.flush(); 
+            
+            switch (choice) {
+                case 1:
+                    gu.listUtilisateurs();
+                    System.out.println("---------------------");
+                    break;
+
+                case 2:
+                    System.out.print("Nom de l'utilisateur: ");
+                    sc.nextLine();
+                    String nom = sc.nextLine();
+
+                    System.out.print("Email de l'utilisateur: ");
+                    String email = sc.nextLine();
+
+                    Utilisateur utilisateur = new Utilisateur(nom, email);
+
+                    gu.addUtilisateurs(utilisateur);
+                    System.out.println("---------------------");
+                    break;
+
+                case 3 :
+                    System.out.print("ID de l'utilisateur à supprimer : ");
+                    int id = sc.nextInt();
+                    sc.nextLine();
+                    gu.deleteUtilisateurs(id);
+                    System.out.println("---------------------");
+                    break;    
+                
+                case 4 :
+                    System.out.print("ID de l'utilisateur à modifier : ");
+                    int idModif = sc.nextInt();
+                    sc.nextLine();
+                    gu.ModifUtilisateurs(id, sc);
+
+                    System.out.println("---------------------");
+                    break;    
+                default:
+                    System.out.println("Choix incorrect !");
+                    break;
             }
+        } while(choice != 0);
 
-        } catch (SQLException e) {
-            System.err.println("Erreur SQL : " + e.getMessage());
-        }
+        link.close();
+        sc.close();
     }
 }

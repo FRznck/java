@@ -6,7 +6,9 @@ public class Main {
     private static ArrayList<Etudiant> Etudiants = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     
+    
     public static void main(String[] args) {
+        scanner.close();
         // Saisir d'étudiants dans la liste
         System.out.println("Bienvenue dans le programme de gestion des étudiants");
         System.out.println(" \n");
@@ -31,10 +33,11 @@ public class Main {
             System.out.println("3. Afficher la liste des etudiants");
             System.out.println("4. Rechercher un etudiant");
             System.out.println("5. Quitter");
-            System.out.print("Votre choix : ");
+             System.out.print("Votre choix : ");
     
             // Lire l'entrée de l'utilisateur
-            choix = scanner.nextInt();
+            choix = scanner.nextInt();;
+           
     
             // Traitement du choix
             switch (choix) {
@@ -68,6 +71,7 @@ public class Main {
         System.out.println("Vous êtes sur le point d'ajouter un etudiant");
         System.out.println("Entrez le nom de l'Etudiant: ");
         Scanner scanner = new Scanner(System.in);
+        scanner.close();
         String nom = scanner.nextLine();
         System.out.println("Entrez le prenom de l'Etudiant:: ");
         String prenom = scanner.nextLine();
