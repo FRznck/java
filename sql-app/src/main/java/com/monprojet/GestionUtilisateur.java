@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GestionUtilisateur {
     ArrayList<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
@@ -81,15 +82,31 @@ public class GestionUtilisateur {
             pstmtUpdate.setString(2, email);
             pstmtUpdate.setInt(3, id);
             int ligneAffecté = pstmtUpdate.executeUpdate();
-
+    
             if (ligneAffecté > 0) {
-                System.out.println("Modification réussie pour avec l'ID : " + id);
+                System.out.println("Modification réussie pour l'utilisateur avec l'ID : " + id);
             } else {
                 System.out.println("Aucune modification effectuée pour l'utilisateur avec l'ID : " + id);
             }
-            } catch (SQLException e) {
-                System.out.println("Erreur de connexion : " + e.getMessage());
-            }
-            }
+        } catch (SQLException e) {
+            System.out.println("Erreur de connexion : " + e.getMessage());
+        }
+    }
 
+    public void rechercherUtilisateur(int id) {
+        try {
+            String sqlRecherche = "SELECT * FROM utilisateurs WHERE id = ?";
+            PreparedStatement pstmtRecherche = this.link.connexion.prepareStatement(sqlRecherche);
+            pstmtRecherche.setInt(1, id);
+            ResultSet resultat = pstmtRecherche.executeQuery();
+            if (resultat.next()) {
+                System.out.println("Nom : " + resultat.getString("nom") + " Email : " +
+                resultat.getString("email"));
+            } else {
+                System.out.println("Aucun utilisateur trouvé avec l'ID : " + id);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur de connexion : " + e.getMessage());
+        }
+    }
 }

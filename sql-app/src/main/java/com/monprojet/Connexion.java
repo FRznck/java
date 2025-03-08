@@ -15,10 +15,13 @@ public class Connexion {
         try {
             // Établir la connexion
             this.connexion = DriverManager.getConnection(this.url, this.utilisateur, this.motDePasse);
-            System.out.println("Connexion réussie !");
+            System.out.println("Connecté à la BDD !");
+            System.out.println( " \n" );
+
+            
             
         } catch (SQLException e) {
-            System.out.println("Erreur de connexion : " + e.getMessage());
+            System.out.println("Erreur de connexion à la BDD : " + e.getMessage());
         }
     }
 

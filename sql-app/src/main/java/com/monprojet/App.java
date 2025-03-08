@@ -12,9 +12,21 @@ public class App
         System.out.print("\033[H\033[2J");   
         System.out.flush();
 
-        System.out.println( "Hello World!" );
+        System.out.println( "Bonjour et bienvenue dans ce GESTIONNAIRE" );
         Connexion link = new Connexion();
         GestionUtilisateur gu = new GestionUtilisateur(link);
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //entrer sur la touche entrée pour continuer
+        
+        System.out.println("Appuyer sur la touche entrée pour continuer");
+        Scanner sc1 = new Scanner(System.in);
+        sc1.nextLine();
+        
 
         /* On demande à l'utilisateur ce qu'il veut faire */
         Scanner sc = new Scanner(System.in);
@@ -26,6 +38,7 @@ public class App
             System.out.println("2 - Ajouter un utilisateur");
             System.out.println("3 - Supprimer un utilisateur");
             System.out.println("4 - Modifier un utilisateur");
+            System.out.println("5 - Rechercher un utilisateur");
             System.out.println("0 - Quitter");
             choice = sc.nextInt();
             
@@ -60,14 +73,25 @@ public class App
                     System.out.println("---------------------");
                     break;    
                 
-                case 4 :
+                    case 4 :
                     System.out.print("ID de l'utilisateur à modifier : ");
                     int idModif = sc.nextInt();
                     sc.nextLine();
-                    gu.ModifUtilisateurs(id, sc);
-
+                    
+                    System.out.print("Nouveau nom de l'utilisateur : ");
+                    String newNom = sc.nextLine();
+                    
+                    System.out.print("Nouvel email de l'utilisateur : ");
+                    String newEmail = sc.nextLine();
+                    
+                    gu.ModifUtilisateurs(idModif, newNom, newEmail);
                     System.out.println("---------------------");
-                    break;    
+                    break;  
+                case 5:
+                    System.out.println("ID de l'utilisateur à rechercher : ");
+                    int idRecherche = sc.nextInt();
+                    sc.nextLine();
+                    break;     
                 default:
                     System.out.println("Choix incorrect !");
                     break;
